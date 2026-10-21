@@ -1,0 +1,15 @@
+{
+  "files": {
+    ".github/workflows/repo-health-check.yml": "172abc9cf27adf29dbbdcad48b85566c91b19d8450efd54f66630b27c6300d5c",
+    ".gitignore": "9e912db151fb930f5a0b0a5aa4dad39101414d4d508626ec8ed491129dba0bb2",
+    "CHANGELOG.md": "2611e3bee54448a4b5aa9695f9d82014bf99d8fcb489de35dda86dc4151aa0b2",
+    "CONTRIBUTING.md": "9fe4902780fa79cf13e852006130f425f672f9b0aa3033c9b9c992ed64f9c8ac",
+    "LICENSE": "358bcf547e36b6ea2e122ad3c848c82584d6318e21e30dde3a12e2869598cf6f",
+    "README.md": "c5b44deca53338732929fbfef9009a4e564a49e43951932e761fcdca122c4755",
+    "RELEASE_CHECKLIST.md": "3d918e7e8a6e8011fa0d01b8e50c28c60ce797f06be7b010dba3d755f1348663",
+    "SECURITY.md": "c0946f28ab821d9e312649053c4e68c34593a102faf5c19715793e35a98b4f99",
+    "docs/PROVENANCE.md": "0e5e5e3c88f3e4e14abfcc3d7f3e98942cb733013bbfd37cfd6f685e61495aa9",
+    "tests/test_repo_health_check.py": "e28c1ad10ad2086dcfd1c7faa234913e343881ec178076b682d1b879769827dc",
+    "tools/repo_health_check.py": "7115ff0a473b9be48df7bfc3b765a31e9b566b6c974a6a4e4d2c5456704c01a9"
+  }
+}

@@ -7,7 +7,7 @@
 - [x] Owner selected MIT candidate for newly developed tool material; licensing scope and provenance were reviewed (not a legal clearance).
 - [x] First independent Git commit uses GitHub `noreply` author and committer. No old PR commit history imported.
 - [x] New public repository created by owner: `Csq57/repo-health-check`.
-- [ ] Upload all 12 source files; verify hashes and a fresh GitHub Actions run on this repository.
+- [x] Uploaded all 12 source files, matched Git blob hashes, and verified GitHub Actions run 39595532249 on Python 3.11 and 3.12.
 - [ ] Configure private vulnerability reporting before presenting a working security-report channel.
 - [ ] Consider release/version tagging **only after** an explicit separate release decision.
 - [ ] Seek honest external usage and contributions before making any claims about open-source community impact or Codex for Open Source acceptance.

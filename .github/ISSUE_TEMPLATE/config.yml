@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a vulnerability privately
+    url: https://github.com/Csq57/repo-health-check/security/advisories
+    about: Use Security and quality > Advisories > Report a vulnerability. Never share security details in public Issues.

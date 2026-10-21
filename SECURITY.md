@@ -1,9 +1,19 @@
 # Security policy
 
-This tool reads local filesystem metadata but does not import, execute, or transmit target repository code. This is not a security certification.
+This inventory tool inspects local file metadata; it does not run target code or contact network services. It is not a security scanner or a security certification.
 
-**Supported release versions:** none yet. Public source is available, but there is no tagged release or formal security support commitment.
+## Supported versions
 
-Private vulnerability reporting is **not yet confirmed enabled**. Do not publish exploit details, tokens, private paths, or secrets in a GitHub issue or public PR. For nonsensitive problems, use the [issue tracker](https://github.com/Csq57/repo-health-check/issues). The maintainer should enable and verify private vulnerability reporting in GitHub repository settings before inviting confidential security reports.
+No tagged release or security-support service-level agreement exists yet. Public source is provided as an experimental project.
 
-A vulnerability fix is accepted only after a targeted regression test and review of the read-only / no-network contracts.
+## Privately reporting vulnerabilities
+
+**Private vulnerability reporting is enabled.** On 21 October 2026, the maintainer's authenticated GitHub Advanced Security settings displayed **Disable private vulnerability reporting**, confirming that the feature was on at the time of the check.
+
+Visit [Security / Advisories](https://github.com/Csq57/repo-health-check/security/advisories) and select **Report a vulnerability**. Describe the impact and a minimal sanitized reproduction privately. GitHub may require sign-in. Do not disclose exploit details, credentials, client records, or other secrets in a public Issue or PR.
+
+If the private form becomes unavailable, open a public Issue **only** to request a secure contact method, without disclosing technical vulnerability details. No bug bounty or response-time guarantee is offered.
+
+## Handling reports
+
+The maintainer will assess incoming reports privately, ask for clarifications as appropriate, and test a bounded fix before any coordinated public disclosure. For non-security bugs or feature suggestions, use [public Issue templates](https://github.com/Csq57/repo-health-check/issues/new/choose) once they have merged.

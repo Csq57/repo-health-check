@@ -1,13 +1,19 @@
 {
   "files": {
+    ".github/ISSUE_TEMPLATE/01-bug-report.yml": "d5f8094150dbb5f1543668e9a0752e1c92a36428e3384781a879f243849212ff",
+    ".github/ISSUE_TEMPLATE/02-feature-request.yml": "64ca9a4658aa1669c48caf687f2c037ceaa9f435837a62b9e5e3a543d3341137",
+    ".github/ISSUE_TEMPLATE/03-first-hand-feedback.yml": "38fc0ddd8f4eee2d6a681efefb619260aef96b6e5efa49084e21e9c54c82c3c5",
+    ".github/ISSUE_TEMPLATE/config.yml": "b9fe3a0988e11b258f123658846afdb1735fdb70ecace69658268fca5ff9a22f",
+    ".github/PULL_REQUEST_TEMPLATE.md": "fbc1d6c04431d3658bdf7fe5809f024c997985596c73712e95fe17f1fcaa9c1a",
     ".github/workflows/repo-health-check.yml": "172abc9cf27adf29dbbdcad48b85566c91b19d8450efd54f66630b27c6300d5c",
     ".gitignore": "9e912db151fb930f5a0b0a5aa4dad39101414d4d508626ec8ed491129dba0bb2",
     "CHANGELOG.md": "2611e3bee54448a4b5aa9695f9d82014bf99d8fcb489de35dda86dc4151aa0b2",
-    "CONTRIBUTING.md": "9fe4902780fa79cf13e852006130f425f672f9b0aa3033c9b9c992ed64f9c8ac",
+    "CONTRIBUTING.md": "22848bf8b25c24083c0c3f1a2a70b31615eebd319e764c656e95733696c00eef",
     "LICENSE": "358bcf547e36b6ea2e122ad3c848c82584d6318e21e30dde3a12e2869598cf6f",
-    "README.md": "c5b44deca53338732929fbfef9009a4e564a49e43951932e761fcdca122c4755",
-    "RELEASE_CHECKLIST.md": "f91b7727b93c5412b298e354be1e7e1fe02da7a42c2fa479bcca626fc3756030",
-    "SECURITY.md": "c0946f28ab821d9e312649053c4e68c34593a102faf5c19715793e35a98b4f99",
+    "README.md": "f7c4753865a39f19361711d6cd29b0734eb1b71b99589c1660150b2e78619245",
+    "RELEASE_CHECKLIST.md": "3ece1b7b9c35bd9c91bbaa13f5cec792447c3b22a4a5996a84d3ea804b2ced74",
+    "SECURITY.md": "be888ae814878baf1ceb5439ba9af6ce84df0760fa5c6bd126e569b07349bd13",
+    "docs/COMMUNITY_FEEDBACK.md": "625bb3ee0a1cb4fd6409d3594afc68644764906282cc9b8785f55d9da69e0709",
     "docs/PROVENANCE.md": "0e5e5e3c88f3e4e14abfcc3d7f3e98942cb733013bbfd37cfd6f685e61495aa9",
     "tests/test_repo_health_check.py": "e28c1ad10ad2086dcfd1c7faa234913e343881ec178076b682d1b879769827dc",
     "tools/repo_health_check.py": "7115ff0a473b9be48df7bfc3b765a31e9b566b6c974a6a4e4d2c5456704c01a9"

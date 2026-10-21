@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a reproducible non-security CLI problem.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a PUBLIC report. Never include secrets, private repositories,
+        customer data or identifying filesystem paths. Use private reporting
+        for security vulnerabilities.
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "e.g. 3.12.7"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction using a synthetic directory
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed result
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Sanitized CLI output (optional)
+      description: JSON output includes the absolute local root path. Redact identifying details.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public safety confirmation
+      options:
+        - label: This is not a vulnerability report, and I removed private identifiers and secrets.
+          required: true

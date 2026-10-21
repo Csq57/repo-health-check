@@ -1,0 +1,39 @@
+name: First-hand usage feedback
+description: Share voluntary real experience, including shortcomings.
+title: "[Feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share only your own experience, not made-up testimonials.
+        Do not provide access, contact details or confidential project identities.
+  - type: dropdown
+    id: context
+    attributes:
+      label: How did you use the tool?
+      options:
+        - Personal Python project
+        - Open-source Python project
+        - Learning or maintenance review
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: observations
+    attributes:
+      label: What worked or caused confusion?
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: One specific improvement (optional)
+    validations:
+      required: false
+  - type: checkboxes
+    id: authenticity
+    attributes:
+      label: Accuracy and privacy
+      options:
+        - label: This is my own experience, without private information.
+          required: true

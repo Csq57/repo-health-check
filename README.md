@@ -59,4 +59,4 @@ This **standalone copy** consists of newly authored tool material, licensed unde
 
 ## Maintainer process
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** Private vulnerability reporting has not yet been confirmed enabled; follow [SECURITY.md](SECURITY.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md); feedback templates become available after the proposed PR is merged.

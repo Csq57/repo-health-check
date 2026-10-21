@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a useful improvement within the read-only tool scope.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets or non-public project details.
+        The tool intentionally does not execute target code or use network APIs.
+  - type: textarea
+    id: need
+    attributes:
+      label: Maintenance problem or use case
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Alternatives or trade-offs
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public safety confirmation
+      options:
+        - label: My request includes no secrets, private code or undisclosed vulnerability.
+          required: true

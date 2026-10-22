@@ -87,7 +87,12 @@ jobs:
         run: |
           set -euo pipefail
           cd /tmp/poetry-preflight
-          poetry run pre-commit run --files tests/console/commands/conftest.py
+          if ! poetry run pre-commit run --files tests/console/commands/conftest.py; then
+            echo "FORMATTER_MODIFIED_DIFF_BEGIN"
+            git diff -- tests/console/commands/conftest.py
+            echo "FORMATTER_MODIFIED_DIFF_END"
+            exit 1
+          fi
 
       - name: Final diff integrity
         shell: bash

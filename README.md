@@ -4,6 +4,8 @@ A small, **read-only** Python repository maintenance inventory for maintainers a
 
 **Status:** experimental public source repository at [Csq57/repo-health-check](https://github.com/Csq57/repo-health-check), without a tagged release or independent adoption evidence. It is **not an OpenAI-endorsed tool or proof of eligibility for any subscription programme**.
 
+**Release preparation:** [v0.1.0 preview release notes](docs/RELEASE_NOTES_v0.1.0_DRAFT.md) are a **draft**, not a published release, tag, package or endorsement. The script currently runs directly from a source checkout or archive; no PyPI package, wheel or installer is offered.
+
 ## Requirements
 
 - Python 3.11 or newer
@@ -60,4 +62,4 @@ This **standalone copy** consists of newly authored tool material, licensed unde
 
 ## Maintainer process
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md); the public Issue chooser now includes the feedback templates.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md). Issue-template files are committed to `main`; availability in the public Issue chooser still needs a browser check.

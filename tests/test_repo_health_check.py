@@ -82,9 +82,49 @@ class HealthCheckTests(unittest.TestCase):
             self.assertEqual(completed.returncode, 0, completed.stderr)
             parsed = json.loads(completed.stdout)
             self.assertEqual(parsed['warning_count'], 3)
+            self.assertEqual(parsed['root'], str(repo.resolve()))
             self.assertEqual(parsed['checks'][0]['name'], 'README')
             self.assertEqual(before, sorted(str(p.relative_to(repo)) for p in repo.rglob('*')))
 
+
+    def test_redact_root_json_omits_path_and_preserves_checks(self):
+        with tempfile.TemporaryDirectory(prefix='oss-private-path-') as directory:
+            repo = Path(directory)
+            (repo / 'README.md').write_text('example\n', encoding='utf-8')
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), directory, '--format', 'json', '--redact-root'],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertNotIn(directory, result.stdout)
+            self.assertNotIn(directory, result.stderr)
+            data = json.loads(result.stdout)
+            self.assertIsNone(data['root'])
+            self.assertEqual(data['warning_count'], 3)
+            self.assertEqual(data['checks'][0]['status'], 'pass')
+
+    def test_redact_root_text_hides_path_without_changing_exit_gate(self):
+        with tempfile.TemporaryDirectory(prefix='oss-private-path-') as directory:
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), directory, '--redact-root',
+                 '--fail-on', 'warning'],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(result.returncode, 1, result.stderr)
+            self.assertIn('Repository health inventory: [redacted]', result.stdout)
+            self.assertNotIn(directory, result.stdout)
+            self.assertNotIn(directory, result.stderr)
+
+    def test_redact_root_invalid_path_error_does_not_leak_path(self):
+        with tempfile.TemporaryDirectory(prefix='oss-private-path-') as directory:
+            missing = str(Path(directory) / 'private-subdir')
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), missing, '--redact-root'],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(result.returncode, 2)
+            self.assertNotIn(directory, result.stderr)
+            self.assertIn('Cannot inspect the supplied directory', result.stderr)
 
     def test_scan_error_reports_incomplete_search(self):
         with tempfile.TemporaryDirectory() as directory:

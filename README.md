@@ -17,11 +17,12 @@ Clone or unzip this repository, then run from its root:
 python tools/repo_health_check.py .
 python tools/repo_health_check.py /path/to/another/repository --format json
 python tools/repo_health_check.py /path/to/another/repository --fail-on warning
+python tools/repo_health_check.py /path/to/another/repository --format json --redact-root
 ```
 
 Windows PowerShell works with the same commands using an installed Python launcher, for example `py -3 tools/repo_health_check.py .`.
 
-`--format json` prints a structured inventory for piping to other local tools. `--fail-on warning` turns missing required checks or incomplete scans into a nonzero exit code. Without that flag the tool reports warning conditions but exits successfully for readable roots.
+`--format json` prints a structured inventory for piping to other local tools. With `--redact-root`, the CLI replaces the absolute root path in text output with `[redacted]`, sets JSON `root` to `null`, and hides directory details in its validation error messages. This is an opt-in option for sharing diagnostic output, **not a general-purpose anonymizer**; filenames, shell command history and other tools' logs may still contain identifying details. `--fail-on warning` turns missing required checks or incomplete scans into a nonzero exit code. Without that flag the tool reports warning conditions but exits successfully for readable roots.
 
 Run its own tests with:
 
@@ -49,7 +50,7 @@ python -m unittest discover -s tests -p 'test_repo_health_check.py' -v
 
 - Scans only the local directory **you supply**; it does not connect to GitHub or a brokerage and does not request credentials.
 - Reads file metadata and directory entries; never reads target source-file contents, imports target modules or executes target tests.
-- The JSON output contains an **absolute local path** (`root`). Remove it before sharing logs that may expose personal home-directory names.
+- By default, JSON output contains an **absolute local path** (`root`). Use `--redact-root` before sharing output to set JSON `root` to `null` and hide the printed root path. Still review other output for identifying information.
 - Do not scan directories you are not authorised to inspect, including private repositories and network mounts.
 - **Not a malware, legal-compliance or vulnerability scanner.** Finding a LICENSE or CI YAML file does not prove its terms or that the workflow runs correctly.
 
@@ -59,4 +60,4 @@ This **standalone copy** consists of newly authored tool material, licensed unde
 
 ## Maintainer process
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md); feedback templates become available after the proposed PR is merged.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md); the public Issue chooser now includes the feedback templates.

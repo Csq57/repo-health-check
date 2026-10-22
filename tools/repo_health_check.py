@@ -137,6 +137,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('path', nargs='?', default='.', help='Repository directory; default: current directory')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
+    parser.add_argument('--redact-root', action='store_true',
+                        help='Hide the absolute root directory in output and error messages')
     parser.add_argument('--fail-on', choices=('none', 'warning'), default='none',
                         help='Exit with status 1 when a warning exists; default does not fail')
     args = parser.parse_args(argv)
@@ -144,17 +146,19 @@ def main(argv: list[str] | None = None) -> int:
         path = Path(args.path).expanduser().resolve()
         checks = inspect_repository(path)
     except (ValueError, OSError) as exc:
-        parser.exit(2, f'repo-health-check: {exc}\n')
+        detail = 'Cannot inspect the supplied directory' if args.redact_root else str(exc)
+        parser.exit(2, f'repo-health-check: {detail}\n')
 
     if args.format == 'json':
         print(json.dumps({
-            'root': str(path),
+            'root': None if args.redact_root else str(path),
             'checks': [asdict(c) for c in checks],
             'warning_count': sum(c.status == 'warning' for c in checks),
             'limits': ['Read-only; no code executed, no network calls, no quality or security certification.'],
         }, indent=2, ensure_ascii=False))
     else:
-        print(f'Repository health inventory: {path}')
+        shown_root = '[redacted]' if args.redact_root else str(path)
+        print(f'Repository health inventory: {shown_root}')
         for c in checks:
             print(f'[{c.status.upper():7}] {c.name}: {c.evidence}')
             if c.next_step:

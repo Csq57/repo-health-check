@@ -1,0 +1,99 @@
+# One-off, non-release verification of a public Poetry contribution candidate.
+# Runs only on this isolated branch. It does NOT publish a PR to Poetry.
+name: External Poetry fixture preflight
+on:
+  push:
+    branches:
+      - codex/poetry-preflight-20261022
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      UPSTREAM_SHA: aa601cd4f0ca7e1d1b1fb2cc7118174efc22f6c4
+      POETRY_VIRTUALENVS_IN_PROJECT: "true"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    steps:
+      - name: Checkout the read-only test assets
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # pinned v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # pinned v5
+        with:
+          python-version: "3.11"
+
+      - name: Checkout pinned public Poetry source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/poetry-preflight
+          git -C /tmp/poetry-preflight init
+          git -C /tmp/poetry-preflight remote add origin https://github.com/python-poetry/poetry.git
+          git -C /tmp/poetry-preflight fetch --no-tags --depth=1 origin "$UPSTREAM_SHA"
+          git -C /tmp/poetry-preflight checkout --detach FETCH_HEAD
+          test "$(git -C /tmp/poetry-preflight rev-parse HEAD)" = "$UPSTREAM_SHA"
+          test -z "$(git -C /tmp/poetry-preflight status --porcelain)"
+          echo "UPSTREAM_PINNED=$UPSTREAM_SHA"
+
+      - name: Verify and apply scoped fixture patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/poetry-preflight
+          test "$(git hash-object tests/console/commands/conftest.py)" = 5c1d32a91c316bf2b2276e1deca1e56be67afe94
+          git apply --check "$GITHUB_WORKSPACE/research/poetry-fixture-dedup.patch"
+          git apply "$GITHUB_WORKSPACE/research/poetry-fixture-dedup.patch"
+          test "$(git hash-object tests/console/commands/conftest.py)" = 0913f35aec12e9689c59758d2b8778d1abeacac0
+          python -m compileall -q tests/console/commands/conftest.py
+          git diff --check
+          git diff --stat
+          echo "PATCH_APPLIED_ONE_FILE=$(git diff --name-only | wc -l)"
+
+      - name: Install actual Poetry dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install "poetry==2.5.1"
+          poetry --version
+          cd /tmp/poetry-preflight
+          poetry install --no-interaction --no-ansi
+          poetry run python --version
+          poetry run pytest --version
+          poetry run mypy --version
+          poetry run pre-commit --version
+
+      - name: Poetry targeted pytest test_init and test_new
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/poetry-preflight
+          poetry run pytest -q tests/console/commands/test_init.py tests/console/commands/test_new.py
+
+      - name: Poetry mypy
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/poetry-preflight
+          poetry run mypy
+
+      - name: Poetry pre-commit on changed file
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/poetry-preflight
+          poetry run pre-commit run --files tests/console/commands/conftest.py
+
+      - name: Final diff integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/poetry-preflight
+          git diff --check
+          test "$(git diff --name-only)" = tests/console/commands/conftest.py
+          echo "POETRY_FULL_PREFLIGHT_PASSED"

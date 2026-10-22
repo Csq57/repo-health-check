@@ -1,8 +1,8 @@
 diff --git a/tests/console/commands/conftest.py b/tests/console/commands/conftest.py
-index 5c1d32a..0913f35 100644
+index 5c1d32a..4833f31 100644
 --- a/tests/console/commands/conftest.py
 +++ b/tests/console/commands/conftest.py
-@@ -46,18 +46,8 @@ def init_basic_toml_no_readme(init_basic_toml: str) -> str:
+@@ -46,21 +46,14 @@ def init_basic_toml_no_readme(init_basic_toml: str) -> str:
  
  
  @pytest.fixture()
@@ -19,7 +19,13 @@ index 5c1d32a..0913f35 100644
 -readme = "README.md"
 -requires-python = ">=3.6"
 +def new_basic_toml(init_basic_toml: str) -> str:
-+    return init_basic_toml + """\
++    return (
++        init_basic_toml
++        + """\
  dependencies = [
  ]
  
+ [tool.poetry]
+ packages = [{include = "my_package", from = "src"}]
+ """
++    )

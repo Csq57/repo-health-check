@@ -28,3 +28,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_repo_health_check.py' -v
       - name: Show inventory (not a quality gate)
         run: python tools/repo_health_check.py . --format text
+      - name: Smoke-test composite Action against this checkout
+        uses: ./
+        with:
+          path: .
+          format: json
+          fail-on: warning
+          redact-root: 'true'

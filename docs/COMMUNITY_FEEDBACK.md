@@ -4,13 +4,13 @@ This project aims to collect **useful, voluntary, real feedback**, not to manufa
 
 ## Channels
 
-- [Public Issues](https://github.com/Csq57/repo-health-check/issues/new/choose): use the bug form, feature-request form, or first-hand usage form. These form choices appear after their draft PR is merged into `main`.
+- [Public Issues](https://github.com/Csq57/repo-health-check/issues/new/choose): the bug, feature-request and first-hand usage template **files are merged into `main`**. Their public Issue-chooser presentation has not yet been independently browser-verified.
 - [Pull requests](https://github.com/Csq57/repo-health-check/pulls): focus on one issue, include tests and limitations.
 - [Private vulnerability reports](https://github.com/Csq57/repo-health-check/security/advisories): choose **Report a vulnerability**. Do not paste security details into a public Issue.
 
 ## Privacy
 
-The CLI's JSON output includes the absolute local directory in the `root` field. Remove user names and project identities before posting. Never include secrets, account data or customer code. Feedback requires neither contact details nor private repository access.
+By default the CLI's JSON `root` field contains the absolute local directory. Use `--redact-root` to set it to `null` (or display `[redacted]` in text output) before sharing diagnostics. This does **not** anonymize every filename, shell command, captured log or other project identity; still review shared output manually. Never include secrets, account data or customer code. Feedback requires neither contact details nor private repository access.
 
 ## Evidence standards
 

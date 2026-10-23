@@ -4,7 +4,7 @@
 
 Source project: `Csq57/ai-python-repository-stabilization-case-study`, public draft [PR #1](https://github.com/Csq57/ai-python-repository-stabilization-case-study/pull/1), verified at commit `9e2f1caab9da012854b44db0d434e326b88d08e1` on 21 October 2026.
 
-The following three files were copied byte-for-byte, verified against the original Git blob hashes via `git hash-object`:
+The following three files were copied byte-for-byte **at the original 21 October 2026 extraction**, verified against the original Git blob hashes via `git hash-object`. These are historical import hashes, **not a claim that every file remains byte-identical in later commits**:
 
 | Standalone file | Git blob SHA-1 in source PR |
 |---|---|
@@ -13,6 +13,10 @@ The following three files were copied byte-for-byte, verified against the origin
 | `.github/workflows/repo-health-check.yml` | `2038264339eae23bb9377fe68befa62607901102` |
 
 The root `LICENSE` is the same bytes as `tools/LICENSE` in the source PR (Git blob `bf660e8ce916667307c8f7b08dbf05e789d72993`). The new README, security, contributing and supporting notes were written specifically for the extracted standalone repository.
+
+### Changes since extraction
+
+The tool and tests were later updated in the standalone repository by [PR #2](https://github.com/Csq57/repo-health-check/pull/2), which added an opt-in path-redaction flag and three regressions. Their **current** Git blobs are therefore different from the historical extraction table above. The root `SHA256_MANIFEST.json` records current source-file bytes at the relevant commit; compare the actual manifest against the checkout before tagging any release.
 
 ## Not copied
 

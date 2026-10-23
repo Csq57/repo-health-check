@@ -16,4 +16,4 @@ If the private form becomes unavailable, open a public Issue **only** to request
 
 ## Handling reports
 
-The maintainer will assess incoming reports privately, ask for clarifications as appropriate, and test a bounded fix before any coordinated public disclosure. For non-security bugs or feature suggestions, use [public Issue templates](https://github.com/Csq57/repo-health-check/issues/new/choose) once they have merged.
+The maintainer will assess incoming reports privately, ask for clarifications as appropriate, and test a bounded fix before any coordinated public disclosure. For non-security bugs or feature suggestions, use [public Issue templates](https://github.com/Csq57/repo-health-check/issues/new/choose). The template files are in `main`; their public Issue-chooser presentation should still be checked manually before a release.

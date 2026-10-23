@@ -70,6 +70,60 @@ class HealthCheckTests(unittest.TestCase):
                 self.skipTest('Symlinks unavailable in this environment')
             self.assertEqual(self.statuses(repo)['CI workflow'], 'warning')
 
+    def test_symlinked_github_directory_does_not_count_external_metadata(self):
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as outside:
+            repo = Path(directory)
+            external = Path(outside)
+            (external / 'workflows').mkdir()
+            (external / 'workflows' / 'ci.yml').write_text('example\n', encoding='utf-8')
+            (external / 'CONTRIBUTING.md').write_text('example\n', encoding='utf-8')
+            (external / 'SECURITY.md').write_text('example\n', encoding='utf-8')
+            try:
+                (repo / '.github').symlink_to(external, target_is_directory=True)
+            except (OSError, NotImplementedError):
+                self.skipTest('Directory symlinks unavailable in this environment')
+            status = self.statuses(repo)
+            self.assertEqual(status['CI workflow'], 'warning')
+            self.assertEqual(status['Contributing guide'], 'info')
+            self.assertEqual(status['Security policy'], 'info')
+
+    def test_scan_does_not_execute_detected_test_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            sentinel = repo / 'unexpected-execution.txt'
+            source = repo / 'test_untrusted.py'
+            source.write_text(
+                "from pathlib import Path\n"
+                + f"Path({str(sentinel)!r}).write_text('executed')\n",
+                encoding='utf-8',
+            )
+            self.assertEqual(self.statuses(repo)['Tests'], 'pass')
+            self.assertFalse(sentinel.exists())
+
+    def test_file_scan_limit_does_not_claim_test_absence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            (repo / 'first.txt').write_text('sample', encoding='utf-8')
+            (repo / 'test_second.py').write_text('sample', encoding='utf-8')
+            with patch('tools.repo_health_check.MAX_FILES_TO_INSPECT', 1):
+                check = next(c for c in inspect_repository(repo) if c.name == 'Tests')
+            self.assertEqual(check.status, 'warning')
+            self.assertIn('Incomplete search: File scan limit reached', check.evidence)
+            self.assertNotIn('No Python test module found', check.evidence)
+
+    def test_redact_root_with_spaces_in_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory) / 'source with spaces'
+            repo.mkdir()
+            (repo / 'README.md').write_text('sample', encoding='utf-8')
+            completed = subprocess.run(
+                [sys.executable, str(SCRIPT), str(repo), '--format', 'json', '--redact-root'],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertNotIn(str(repo), completed.stdout + completed.stderr)
+            self.assertIsNone(json.loads(completed.stdout)['root'])
+
     def test_json_is_machine_readable_and_nonmutating(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)

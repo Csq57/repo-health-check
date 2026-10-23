@@ -26,6 +26,37 @@ Windows PowerShell works with the same commands using an installed Python launch
 
 `--format json` prints a structured inventory for piping to other local tools. With `--redact-root`, the CLI replaces the absolute root path in text output with `[redacted]`, sets JSON `root` to `null`, and hides directory details in its validation error messages. This is an opt-in option for sharing diagnostic output, **not a general-purpose anonymizer**; filenames, shell command history and other tools' logs may still contain identifying details. `--fail-on warning` turns missing required checks or incomplete scans into a nonzero exit code. Without that flag the tool reports warning conditions but exits successfully for readable roots.
 
+## GitHub Actions integration (experimental, not in v0.1.0)
+
+Branches containing [`action.yml`](action.yml) can be used as a **composite GitHub Action** to check an already checked-out Python repository. The published `v0.1.0` tag **does not** include this integration. Until a separately approved new tag is published, the example below uses the moving `main` branch for evaluation only; **pin a reviewed full commit SHA** before using this action in a trusted production workflow.
+
+```yaml
+name: Maintenance inventory
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: Csq57/repo-health-check@main # Evaluation only; pin a full commit SHA in production.
+        with:
+          path: .
+          format: json
+          fail-on: warning
+          redact-root: 'true'
+```
+
+The action invokes the same read-only CLI from the action's own checkout. It does not download dependencies, run target-project code, request tokens or perform network requests. It requires **Python 3.11+** and a bash-capable runner; callers supply Python (as above) and check out the repository to be inspected. Inputs: `path` (default `.`), `format` (`text` or `json`), `fail-on` (`none` or `warning`), and `redact-root` (`true` by default; `false` to print the full root). Invalid options exit with status 2.
+
+When `fail-on: warning` is set, a missing README, license, CI workflow or test filename makes the CI step fail; this is a **presence check**, not proof of software quality, passing tests, security or licence validity. JSON is printed to the job log, not uploaded as an artifact, and may still expose file names or other repository metadata. Do not use the action to scan private or third-party directories without authorization.
+
+**Integrity note:** [`SHA256_MANIFEST.json`](SHA256_MANIFEST.json) records the **v0.1.0 tag's** original 18-file snapshot; it is not a rolling integrity inventory for later unreleased `main` changes.
+
 Run its own tests with:
 
 ```shell

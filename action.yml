@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2026 Songquan Chen
+# SPDX-License-Identifier: MIT
+name: Repo Health Inventory
+description: Read-only, standard-library-only maintenance-file inventory for a checked-out Python repository
+inputs:
+  path:
+    description: Root directory to inspect (defaults to the caller workspace)
+    required: false
+    default: .
+  format:
+    description: Output format, text or json
+    required: false
+    default: text
+  fail-on:
+    description: Exit with status 1 when warnings exist (warning), or do not fail (none)
+    required: false
+    default: none
+  redact-root:
+    description: Hide the scanned root path in the CLI output (true or false)
+    required: false
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - name: Inventory repository maintenance files
+      shell: bash
+      env:
+        REPO_HEALTH_PATH: ${{ inputs.path }}
+        REPO_HEALTH_FORMAT: ${{ inputs.format }}
+        REPO_HEALTH_FAIL_ON: ${{ inputs.fail-on }}
+        REPO_HEALTH_REDACT_ROOT: ${{ inputs.redact-root }}
+        REPO_HEALTH_SCRIPT: ${{ github.action_path }}/tools/repo_health_check.py
+      run: |
+        set -euo pipefail
+        args=("$REPO_HEALTH_PATH" --format "$REPO_HEALTH_FORMAT" --fail-on "$REPO_HEALTH_FAIL_ON")
+        case "$REPO_HEALTH_REDACT_ROOT" in
+          true) args+=(--redact-root) ;;
+          false) ;;
+          *) printf '%s\n' "redact-root must be 'true' or 'false'" >&2; exit 2 ;;
+        esac
+        python "$REPO_HEALTH_SCRIPT" "${args[@]}"

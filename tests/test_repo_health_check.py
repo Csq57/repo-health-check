@@ -75,9 +75,9 @@ class HealthCheckTests(unittest.TestCase):
             repo = Path(directory)
             external = Path(outside)
             (external / 'workflows').mkdir()
-            (external / 'workflows' / 'ci.yml').write_text('example\\n', encoding='utf-8')
-            (external / 'CONTRIBUTING.md').write_text('example\\n', encoding='utf-8')
-            (external / 'SECURITY.md').write_text('example\\n', encoding='utf-8')
+            (external / 'workflows' / 'ci.yml').write_text('example\n', encoding='utf-8')
+            (external / 'CONTRIBUTING.md').write_text('example\n', encoding='utf-8')
+            (external / 'SECURITY.md').write_text('example\n', encoding='utf-8')
             try:
                 (repo / '.github').symlink_to(external, target_is_directory=True)
             except (OSError, NotImplementedError):
@@ -93,8 +93,8 @@ class HealthCheckTests(unittest.TestCase):
             sentinel = repo / 'unexpected-execution.txt'
             source = repo / 'test_untrusted.py'
             source.write_text(
-                "from pathlib import Path\\n"
-                "Path('unexpected-execution.txt').write_text('executed')\\n",
+                "from pathlib import Path\n"
+                + f"Path({str(sentinel)!r}).write_text('executed')\n",
                 encoding='utf-8',
             )
             self.assertEqual(self.statuses(repo)['Tests'], 'pass')

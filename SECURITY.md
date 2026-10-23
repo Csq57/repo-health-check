@@ -4,7 +4,7 @@ This inventory tool inspects local file metadata; it does not run target code or
 
 ## Supported versions
 
-No tagged release or security-support service-level agreement exists yet. Public source is provided as an experimental project.
+This is an experimental source project without a guaranteed security-support service-level agreement. Check [GitHub Releases](https://github.com/Csq57/repo-health-check/releases) for the live version status; a tag is not a security certification.
 
 ## Privately reporting vulnerabilities
 
@@ -16,4 +16,4 @@ If the private form becomes unavailable, open a public Issue **only** to request
 
 ## Handling reports
 
-The maintainer will assess incoming reports privately, ask for clarifications as appropriate, and test a bounded fix before any coordinated public disclosure. For non-security bugs or feature suggestions, use [public Issue templates](https://github.com/Csq57/repo-health-check/issues/new/choose). The template files are in `main`; their public Issue-chooser presentation should still be checked manually before a release.
+The maintainer will assess incoming reports privately, ask for clarifications as appropriate, and test a bounded fix before any coordinated public disclosure. For non-security bugs or feature suggestions, use [public Issue templates](https://github.com/Csq57/repo-health-check/issues/new/choose). The template files are in `main`; all three forms appeared in a maintainer-supplied screenshot on 23 October 2026; recheck if settings change.

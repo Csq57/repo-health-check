@@ -4,7 +4,7 @@ This project aims to collect **useful, voluntary, real feedback**, not to manufa
 
 ## Channels
 
-- [Public Issues](https://github.com/Csq57/repo-health-check/issues/new/choose): the bug, feature-request and first-hand usage template **files are merged into `main`**. Their public Issue-chooser presentation has not yet been independently browser-verified.
+- [Public Issues](https://github.com/Csq57/repo-health-check/issues/new/choose): the bug, feature-request and first-hand usage template **files are merged into `main`**. The public Issue chooser was confirmed to display all three forms in a maintainer-provided screenshot on 23 October 2026; availability may change.
 - [Pull requests](https://github.com/Csq57/repo-health-check/pulls): focus on one issue, include tests and limitations.
 - [Private vulnerability reports](https://github.com/Csq57/repo-health-check/security/advisories): choose **Report a vulnerability**. Do not paste security details into a public Issue.
 

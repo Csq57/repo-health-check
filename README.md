@@ -2,9 +2,9 @@
 
 A small, **read-only** Python repository maintenance inventory for maintainers and coding-agent workflows. Checks for a README, explicit licensing, CI workflow, basic test-file presence, and optional packaging, contributing and security files.
 
-**Status:** experimental public source repository at [Csq57/repo-health-check](https://github.com/Csq57/repo-health-check), without a tagged release or independent adoption evidence. It is **not an OpenAI-endorsed tool or proof of eligibility for any subscription programme**.
+**Status:** experimental public source repository at [Csq57/repo-health-check](https://github.com/Csq57/repo-health-check), without independently verified adoption at its initial publication. Check [GitHub Releases](https://github.com/Csq57/repo-health-check/releases) for the live version and tag status. It is **not an OpenAI-endorsed tool or proof of eligibility for any subscription programme**.
 
-**Release preparation:** [v0.1.0 preview release notes](docs/RELEASE_NOTES_v0.1.0_DRAFT.md) are a **draft**, not a published release, tag, package or endorsement. The script currently runs directly from a source checkout or archive; no PyPI package, wheel or installer is offered.
+**Release information:** Check [GitHub Releases](https://github.com/Csq57/repo-health-check/releases) for actual releases and source archives. The [v0.1.0 preparation notes](docs/RELEASE_NOTES_v0.1.0_DRAFT.md) are a historical preparation document, not a publication receipt. This is a source-run script, not a PyPI package, wheel or installer.
 
 ## Requirements
 
@@ -62,4 +62,4 @@ This **standalone copy** consists of newly authored tool material, licensed unde
 
 ## Maintainer process
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md). Issue-template files are committed to `main`; availability in the public Issue chooser still needs a browser check.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md). Issue-template files are committed to `main`; a maintainer-provided screenshot on 23 October 2026 verified that all three forms appear in the public Issue chooser; settings may change.

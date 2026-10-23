@@ -3,7 +3,7 @@
 ## Unreleased (on main or in review; not included in v0.1.0)
 
 - Guard optional `.github` metadata lookups against directory symlinks that point outside the inspected root; add a regression test with external fixture metadata.
-- Expand CI checks across Ubuntu, Windows and macOS for Python 3.11 and 3.12, with additional file-limit, read-only, and path-redaction regressions (subject to CI validation).
+- Expand CI checks across Ubuntu, Windows and macOS for Python 3.11 and 3.12, with additional file-limit, read-only, and path-redaction regressions ([verified CI](https://github.com/Csq57/repo-health-check/actions/runs/39927105289)).
 - Introduce an experimental read-only composite GitHub Action with validation of `redact-root` and shell-safe environment input passing.
 - Smoke-test Action usage in the existing Python 3.11/3.12 CI matrix; document consumer integration and immutable reference guidance.
 - Keep the published `v0.1.0` tag unchanged. Its SHA-256 manifest describes the historical release tree, not these pending changes.

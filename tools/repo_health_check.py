@@ -33,7 +33,16 @@ class Check:
 
 def _first_file(root: Path, names: Iterable[str]) -> str | None:
     for name in names:
-        candidate = root / name
+        relative = Path(name)
+        # Do not follow symlinked parent directories when locating optional
+        # .github metadata outside the inspected repository.
+        if any(
+            (root / parent).is_symlink()
+            for parent in relative.parents
+            if parent != Path('.')
+        ):
+            continue
+        candidate = root / relative
         if candidate.is_file() and not candidate.is_symlink():
             return name
     return None
@@ -102,7 +111,11 @@ def inspect_repository(root: Path) -> list[Check]:
 
     workflows = root / '.github' / 'workflows'
     workflow_found = None
-    if workflows.is_dir() and not workflows.is_symlink():
+    if (
+        not (root / '.github').is_symlink()
+        and workflows.is_dir()
+        and not workflows.is_symlink()
+    ):
         for child in sorted(workflows.iterdir()):
             if child.is_file() and not child.is_symlink() and child.suffix.lower() in ('.yml', '.yaml'):
                 workflow_found = str(child.relative_to(root))

@@ -28,7 +28,7 @@ Windows PowerShell works with the same commands using an installed Python launch
 
 ## GitHub Actions integration (experimental, not in v0.1.0)
 
-Branches containing [`action.yml`](action.yml) can be used as a **composite GitHub Action** to check an already checked-out Python repository. The published `v0.1.0` tag **does not** include this integration. Until a separately approved new tag is published, the example below uses the moving `main` branch for evaluation only; **pin a reviewed full commit SHA** before using this action in a trusted production workflow.
+The [`action.yml`](action.yml) on `main` provides a **composite GitHub Action** to check an already checked-out Python repository. The published `v0.1.0` tag **does not** include this integration. Until a separately approved new tag is published, use a **reviewed full commit SHA** rather than the moving `main` branch; the example below pins the revision validated across repositories.
 
 ```yaml
 name: Maintenance inventory
@@ -43,13 +43,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: Csq57/repo-health-check@main # Evaluation only; pin a full commit SHA in production.
+      - uses: Csq57/repo-health-check@da5d2ad23f9c72b2c5d9f1032c3eb4057129ec2e # Reviewed Action revision
         with:
           path: .
           format: json
           fail-on: warning
           redact-root: 'true'
 ```
+
+The [cross-repository integration evidence](docs/INTEGRATION_EVIDENCE.md) documents an actual CI run against public PyPA Packaging source and a separate maintainer-owned case-study repository. These are *maintainer-run tests*, not claims that other maintainers adopted the Action.
 
 The action invokes the same read-only CLI from the action's own checkout. It does not download dependencies, run target-project code, request tokens or perform network requests. It requires **Python 3.11+** and a bash-capable runner; callers supply Python (as above) and check out the repository to be inspected. Inputs: `path` (default `.`), `format` (`text` or `json`), `fail-on` (`none` or `warning`), and `redact-root` (`true` by default; `false` to print the full root). Invalid options exit with status 2.
 
@@ -93,4 +95,4 @@ This **standalone copy** consists of newly authored tool material, licensed unde
 
 ## Maintainer process
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md). Issue-template files are committed to `main`; a maintainer-provided screenshot on 23 October 2026 verified that all three forms appear in the public Issue chooser; settings may change.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to propose improvements and [SECURITY.md](SECURITY.md) for reporting vulnerabilities responsibly. Use the public [issue tracker](https://github.com/Csq57/repo-health-check/issues) for non-sensitive bugs. **Do not include credentials or confidential data.** [Private vulnerability reporting](SECURITY.md) is now enabled for sensitive security findings. For bugs, feature ideas or first-hand usage, follow the [feedback guide](docs/COMMUNITY_FEEDBACK.md). If you personally try the Action in your own Python repository, please share reproducible results (with sensitive paths and data removed) via the [first-hand usage feedback form](https://github.com/Csq57/repo-health-check/issues/new/choose). Independent reports, not stars, are the most useful signal. Issue-template files are committed to `main`; a maintainer-provided screenshot on 23 October 2026 verified that all three forms appear in the public Issue chooser; settings may change.
